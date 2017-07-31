@@ -39,10 +39,10 @@ import { LazyModule } from 'ngx-lazy';
 # Usage Example
 Usage of the module on a simple list of items:
 ```html
-<div class="list-container" appLazyParent [batchSize]=10>
+<div class="list-container" lazyParent [batchSize]=10>
   <ng-template ngFor let-row [ngForOf]="items">
     <!-- This will not be rendered -->
-    <div *appLazyChild>Item</div>
+    <div *lazyChild>Item</div>
   </ng-template>
 </div>
 ```
