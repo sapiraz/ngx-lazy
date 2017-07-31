@@ -1,6 +1,6 @@
 {
   "name": "ngx-lazy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lazy loading for Angular",
   "main": "compiled/src/index.js",
   "typings": "compiled/src/index.d.ts",
