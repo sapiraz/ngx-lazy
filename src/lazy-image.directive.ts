@@ -36,15 +36,21 @@ export class LazyImageDirective implements OnInit {
         }
     }
 
+    /**
+     * Renders the image
+     * 
+     * @memberof LazyImageDirective
+     */
     show() {
         this.shown = true;
         this._renderer.setElementAttribute(this.elementRef.nativeElement, 'src', this.lazyImage);
     }
 
     /**
-     * Checks whether the image is now visible in it's container
-     *
-     * @memberof LazyLoadParentDirective
+     * Checks if the element is visible in the window viewport
+     * 
+     * @returns {boolean} 
+     * @memberof LazyImageDirective
      */
     isInViewport(): boolean {
         let result = false;
