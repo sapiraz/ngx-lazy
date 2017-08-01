@@ -7,9 +7,12 @@ Simple lazy loading for Angular 4
 2. [Usage Example](#usage-example)
 
 # Description
-This library was created for displaying large amounts of items in a scrolled container.
+This library was created lazy loading needs in Angular.
 
-For example, if you have a list of 1000 list items in a dropdown and they take a lot of effort from Angular to render, you could use the directive to display small portions of the list based on scroll.
+For example, displaying images only when they're in the viewport, 
+or for gradually displaying large amounts of items in a list.
+
+For example, if you have a list of 1000 items in a dropdown and they take a lot of effort from Angular to render, you could use the directive to display small portions of the list based on scroll.
 
 # Installation
 Installation is done via npm:
@@ -37,12 +40,21 @@ import { LazyModule } from 'ngx-lazy';
 ```
 
 # Usage Example
+
+## Lazy Image
+This directive will render the image only when it's in the viewport
+Simply replace the `src` attribute with `lazyImage`.
+```html
+<img lazyImage="http://yourdomain.com/your-image.jpg">
+```
+
+## Lazy List
 Usage of the module on a simple list of items:
 ```html
-<div class="list-container" lazyParent [batchSize]=10>
+<div class="list-container" lazyListParent [batchSize]=10>
   <ng-template ngFor let-row [ngForOf]="items">
     <!-- This will not be rendered -->
-    <div *lazyChild>Item</div>
+    <div *lazyListChild>Item</div>
   </ng-template>
 </div>
 ```

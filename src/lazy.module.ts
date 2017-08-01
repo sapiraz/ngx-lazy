@@ -1,17 +1,21 @@
-import { LazyParentDirective } from './lazy-parent.directive';
-import { LazyChildDirective, LazyVirtualComponent } from './lazy-child.directive';
 import { NgModule } from '@angular/core';
+import { LazyListParentDirective } from './lazy-list-parent.directive';
+import { LazyListChildDirective } from './lazy-list-child.directive';
+import { LazyVirtualComponent } from './lazy-element';
+import { LazyImageDirective } from './lazy-image.directive';
 
 @NgModule({
     declarations: [
-        LazyChildDirective,
-        LazyParentDirective,
+        LazyListChildDirective,
+        LazyListParentDirective,
+        LazyImageDirective,
         LazyVirtualComponent
     ],
     entryComponents: [LazyVirtualComponent],
     exports: [
-        LazyChildDirective,
-        LazyParentDirective,
+        LazyListChildDirective,
+        LazyListParentDirective,
+        LazyImageDirective,
         LazyVirtualComponent
     ],
     providers: [

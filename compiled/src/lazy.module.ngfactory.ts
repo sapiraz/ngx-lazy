@@ -8,7 +8,7 @@
 
 import * as i0 from '@angular/core';
 import * as i1 from '../../src/lazy.module';
-import * as i2 from './lazy-child.directive.ngfactory';
+import * as i2 from './lazy-element.ngfactory';
 export const LazyModuleNgFactory:i0.NgModuleFactory<i1.LazyModule> = i0.ɵcmf(i1.LazyModule,
     ([] as any[]),(_l:any) => {
       return i0.ɵmod([i0.ɵmpd(512,i0.ComponentFactoryResolver,i0.ɵCodegenComponentFactoryResolver,

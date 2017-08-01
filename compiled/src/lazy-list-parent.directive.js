@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, ContentChildren, Inject, NgZone } from '@angular/core';
-import { LazyChildDirective } from './lazy-child.directive';
-var LazyParentDirective = (function () {
-    function LazyParentDirective(elementRef, windowObject, zone) {
+import { LazyListChildDirective } from './lazy-list-child.directive';
+var LazyListParentDirective = (function () {
+    function LazyListParentDirective(elementRef, windowObject, zone) {
         this.elementRef = elementRef;
         this.windowObject = windowObject;
         this.zone = zone;
@@ -22,7 +22,7 @@ var LazyParentDirective = (function () {
             this._clearTimeoutFn = this.windowObject['__zone_symbol__clearTimeout'];
         }
     }
-    LazyParentDirective.prototype.ngAfterContentInit = function () {
+    LazyListParentDirective.prototype.ngAfterContentInit = function () {
         var _this = this;
         // Handle scrolling to determine whether more items should be rendered
         this.elementRef.nativeElement.addEventListener('mousewheel', function ($event) {
@@ -68,7 +68,7 @@ var LazyParentDirective = (function () {
      * @param {(number | boolean)} [count]
      * @memberof LazyParentDirective
      */
-    LazyParentDirective.prototype.renderChildren = function (children, count) {
+    LazyListParentDirective.prototype.renderChildren = function (children, count) {
         var _this = this;
         if (!count) {
             children.forEach(function (s, idx) {
@@ -110,7 +110,7 @@ var LazyParentDirective = (function () {
      *
      * @memberof LazyParentDirective
      */
-    LazyParentDirective.prototype.onVisible = function () {
+    LazyListParentDirective.prototype.onVisible = function () {
         if (this.occupySpaceVirtually) {
             this.renderChildren(this.children);
         }
@@ -119,7 +119,7 @@ var LazyParentDirective = (function () {
             this.renderChildren(this.children.toArray(), this.initialBatchSize);
         }
     };
-    LazyParentDirective.prototype.onInvisible = function () {
+    LazyListParentDirective.prototype.onInvisible = function () {
         this.clearTasks();
     };
     /**
@@ -127,7 +127,7 @@ var LazyParentDirective = (function () {
      *
      * @memberof LazyLoadParentDirective
      */
-    LazyParentDirective.prototype.scrollHandler = function ($event) {
+    LazyListParentDirective.prototype.scrollHandler = function ($event) {
         var lastFailed = false;
         var children = this.children.toArray();
         if (this.occupySpaceVirtually) {
@@ -159,7 +159,7 @@ var LazyParentDirective = (function () {
      *
      * @memberof LazyLoadParentDirective
      */
-    LazyParentDirective.prototype.isElementVisible = function (e) {
+    LazyListParentDirective.prototype.isElementVisible = function (e) {
         var result = false;
         var parent = this.elementRef.nativeElement;
         var child = e.nativeElement;
@@ -180,19 +180,19 @@ var LazyParentDirective = (function () {
      * @returns {boolean}
      * @memberof LazyLoadParentDirective
      */
-    LazyParentDirective.prototype.hasScroll = function () {
+    LazyListParentDirective.prototype.hasScroll = function () {
         var target = this.elementRef.nativeElement;
         var result = target.scrollHeight > target.offsetHeight;
         return result;
     };
-    LazyParentDirective.prototype.callAsync = function (fn, idx) {
+    LazyListParentDirective.prototype.callAsync = function (fn, idx) {
         var _this = this;
         var _setTimeoutFn = this._setTimeoutFn;
         this.zone.runOutsideAngular(function () {
             _this.tasks.push(_setTimeoutFn(fn, idx ? idx * 5 : 1));
         });
     };
-    LazyParentDirective.prototype.clearTasks = function () {
+    LazyListParentDirective.prototype.clearTasks = function () {
         var _this = this;
         var _clearTimeoutFn = this._clearTimeoutFn;
         this.zone.runOutsideAngular(function () {
@@ -200,30 +200,30 @@ var LazyParentDirective = (function () {
             _this.tasks = [];
         });
     };
-    LazyParentDirective.prototype.ngOnDestroy = function () {
+    LazyListParentDirective.prototype.ngOnDestroy = function () {
         this.clearTasks();
         if (this.visibilityCheckInterval) {
             clearInterval(this.visibilityCheckInterval);
         }
     };
-    LazyParentDirective.decorators = [
+    LazyListParentDirective.decorators = [
         { type: Directive, args: [{
-                    selector: '[lazyParent]'
+                    selector: '[lazyListParent]'
                 },] },
     ];
     /** @nocollapse */
-    LazyParentDirective.ctorParameters = function () { return [
+    LazyListParentDirective.ctorParameters = function () { return [
         { type: ElementRef, },
         { type: undefined, decorators: [{ type: Inject, args: ['windowObject',] },] },
         { type: NgZone, },
     ]; };
-    LazyParentDirective.propDecorators = {
+    LazyListParentDirective.propDecorators = {
         'initialBatchSize': [{ type: Input },],
         'batchSize': [{ type: Input },],
         'occupySpaceVirtually': [{ type: Input },],
-        'children': [{ type: ContentChildren, args: [LazyChildDirective, { descendants: true },] },],
+        'children': [{ type: ContentChildren, args: [LazyListChildDirective, { descendants: true },] },],
     };
-    return LazyParentDirective;
+    return LazyListParentDirective;
 }());
-export { LazyParentDirective };
-//# sourceMappingURL=lazy-parent.directive.js.map
+export { LazyListParentDirective };
+//# sourceMappingURL=lazy-list-parent.directive.js.map

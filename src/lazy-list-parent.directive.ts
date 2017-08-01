@@ -9,18 +9,18 @@ import {
     Inject,
     NgZone
 } from '@angular/core';
-import { LazyChildDirective } from './lazy-child.directive';
+import { LazyListChildDirective } from './lazy-list-child.directive';
 
 @Directive({
-    selector: '[lazyParent]'
+    selector: '[lazyListParent]'
 })
-export class LazyParentDirective implements AfterContentInit, OnDestroy {
+export class LazyListParentDirective implements AfterContentInit, OnDestroy {
 
     // Amount of items to render initially, if false, items will keep rendering until there's scroll
     @Input() initialBatchSize: number | boolean = false;
     @Input() batchSize: number = 10; // Amount of additional items to load when reaching bottom
     @Input() occupySpaceVirtually: boolean = false; // Whether to simulate large scroll size
-    @ContentChildren(LazyChildDirective, {descendants: true}) children: QueryList<LazyChildDirective>;
+    @ContentChildren(LazyListChildDirective, { descendants: true }) children: QueryList<LazyListChildDirective>;
     
     private visibilityCheckInterval: any;
     private tasks: any[] = [];

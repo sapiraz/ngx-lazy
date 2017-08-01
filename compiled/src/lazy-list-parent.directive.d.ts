@@ -1,13 +1,13 @@
 import { OnDestroy, ElementRef, AfterContentInit, QueryList, NgZone } from '@angular/core';
-import { LazyChildDirective } from './lazy-child.directive';
-export declare class LazyParentDirective implements AfterContentInit, OnDestroy {
+import { LazyListChildDirective } from './lazy-list-child.directive';
+export declare class LazyListParentDirective implements AfterContentInit, OnDestroy {
     elementRef: ElementRef;
     private windowObject;
     private zone;
     initialBatchSize: number | boolean;
     batchSize: number;
     occupySpaceVirtually: boolean;
-    children: QueryList<LazyChildDirective>;
+    children: QueryList<LazyListChildDirective>;
     private visibilityCheckInterval;
     private tasks;
     private visible;

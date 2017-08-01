@@ -1,4 +1,4 @@
-import { Directive, Component, ElementRef, TemplateRef, ViewContainerRef, ComponentFactoryResolver, ReflectiveInjector, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef, ReflectiveInjector } from '@angular/core';
 var LazyVirtualComponent = (function () {
     function LazyVirtualComponent(elementRef) {
         this.elementRef = elementRef;
@@ -16,8 +16,8 @@ var LazyVirtualComponent = (function () {
     return LazyVirtualComponent;
 }());
 export { LazyVirtualComponent };
-var LazyChildDirective = (function () {
-    function LazyChildDirective(templateRef, viewContainer, elementRef, componentFactoryResolver, cd) {
+var LazyElement = (function () {
+    function LazyElement(templateRef, viewContainer, elementRef, componentFactoryResolver, cd) {
         this.templateRef = templateRef;
         this.viewContainer = viewContainer;
         this.elementRef = elementRef;
@@ -30,7 +30,7 @@ var LazyChildDirective = (function () {
      *
      * @memberof LazyChildDirective
      */
-    LazyChildDirective.prototype.show = function () {
+    LazyElement.prototype.show = function () {
         this.viewContainer.clear();
         this.showing = true;
         this.viewContainer.createEmbeddedView(this.templateRef);
@@ -43,7 +43,7 @@ var LazyChildDirective = (function () {
      * @param {boolean} [occupySpace=false]  Allows occupying space virtually
      * @memberof LazyChildDirective
      */
-    LazyChildDirective.prototype.hide = function (occupySpace) {
+    LazyElement.prototype.hide = function (occupySpace) {
         if (occupySpace === void 0) { occupySpace = false; }
         this.viewContainer.clear();
         this.showing = false;
@@ -51,7 +51,7 @@ var LazyChildDirective = (function () {
             this.shownElementRef = this.createVirtualComponent();
         }
     };
-    LazyChildDirective.prototype.createVirtualComponent = function () {
+    LazyElement.prototype.createVirtualComponent = function () {
         var factory = this.componentFactoryResolver.resolveComponentFactory(LazyVirtualComponent);
         var injector = ReflectiveInjector.fromResolvedProviders([], this.viewContainer.parentInjector);
         // create component without adding it directly to the DOM
@@ -60,21 +60,7 @@ var LazyChildDirective = (function () {
         this.viewContainer.insert(comp.hostView);
         return comp.instance.elementRef;
     };
-    LazyChildDirective.decorators = [
-        { type: Directive, args: [{
-                    selector: '[lazyChild]',
-                    exportAs: 'lazyChild'
-                },] },
-    ];
-    /** @nocollapse */
-    LazyChildDirective.ctorParameters = function () { return [
-        { type: TemplateRef, },
-        { type: ViewContainerRef, },
-        { type: ElementRef, },
-        { type: ComponentFactoryResolver, },
-        { type: ChangeDetectorRef, },
-    ]; };
-    return LazyChildDirective;
+    return LazyElement;
 }());
-export { LazyChildDirective };
-//# sourceMappingURL=lazy-child.directive.js.map
+export { LazyElement };
+//# sourceMappingURL=lazy-element.js.map

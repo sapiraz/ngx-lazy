@@ -16,22 +16,18 @@ import {
     template: `<div class='virtual-element'></div>`
 })
 export class LazyVirtualComponent {
-    constructor(public elementRef: ElementRef) {}
+    constructor(public elementRef: ElementRef) { }
 }
 
-@Directive({
-    selector: '[lazyChild]',
-    exportAs: 'lazyChild'
-})
-export class LazyChildDirective {
+export class LazyElement {
     showing: boolean = false;
     shownElementRef: ElementRef;
 
     constructor(public templateRef: TemplateRef<ElementRef>,
-                private viewContainer: ViewContainerRef,
-                public elementRef: ElementRef,
-                private componentFactoryResolver: ComponentFactoryResolver,
-                private cd: ChangeDetectorRef) {}
+        protected viewContainer: ViewContainerRef,
+        public elementRef: ElementRef,
+        protected componentFactoryResolver: ComponentFactoryResolver,
+        protected cd: ChangeDetectorRef) { }
 
     /**
      * Renders the original element

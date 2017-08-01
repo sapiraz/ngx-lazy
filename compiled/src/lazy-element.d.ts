@@ -3,12 +3,12 @@ export declare class LazyVirtualComponent {
     elementRef: ElementRef;
     constructor(elementRef: ElementRef);
 }
-export declare class LazyChildDirective {
+export declare class LazyElement {
     templateRef: TemplateRef<ElementRef>;
-    private viewContainer;
+    protected viewContainer: ViewContainerRef;
     elementRef: ElementRef;
-    private componentFactoryResolver;
-    private cd;
+    protected componentFactoryResolver: ComponentFactoryResolver;
+    protected cd: ChangeDetectorRef;
     showing: boolean;
     shownElementRef: ElementRef;
     constructor(templateRef: TemplateRef<ElementRef>, viewContainer: ViewContainerRef, elementRef: ElementRef, componentFactoryResolver: ComponentFactoryResolver, cd: ChangeDetectorRef);
